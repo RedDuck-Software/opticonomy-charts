@@ -1,0 +1,45 @@
+replicaCount: 1
+
+image:
+  repository: dimkobo/opticonomy-testnet-node
+  tag: latest
+  pullPolicy: Always
+
+nodeConfig:
+  basePath: /data/node1
+  chain: ./opticonomy-public-testnet-raw.json
+  name: archivenode
+  keyFile: ./scripts/Node1_keyfile
+  keystorePath: ./scripts/Node1_keystore
+  port: 30333
+  rpcPort: 9933
+  wsPort: 9944
+  telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
+  pruning: archive
+  bootnodes: /dns4/opticonomy-node-opticonomy-node-archive.default.svc.cluster.local/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+  # bootnodes: /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "2Gi"
+  requests:
+    cpu: "0.5"
+    memory: "1Gi"
+
+persistence:
+  enabled: true
+  size: 10Gi
+
+service:
+  type: LoadBalancer  # Ensure it's only accessible within the cluster
+  ports:
+    - name: p2p
+      port: 30333
+      # targetPort: 30333
+    - name: rpc
+      port: 9933
+      targetPort: 9933
+    - name: ws
+      port: 9944
+      targetPort: 9944

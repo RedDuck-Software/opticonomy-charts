@@ -1,0 +1,47 @@
+replicaCount: 1
+
+image:
+  repository: dimkobo/opticonomy-testnet-node
+  tag: latest
+  pullPolicy: Always
+
+nodeConfig:
+  basePath: /data/node1
+  chain: ./opticonomy-public-testnet-raw.json
+  name: RPCNode
+  keyFile: ./scripts/Node3_keyfile
+  keystorePath: ./scripts/Node3_keystore
+  port: 30533
+  rpcPort: 9953
+  wsPort: 9964
+  telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
+  pruning: 250
+  # bootnodes: /ip4/10.244.0.23/tpc/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+  bootnodes: /dns4/opticonomy-node-opticonomy-node-archive.default.svc.cluster.local/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+  # bootnodes: /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "2Gi"
+  requests:
+    cpu: "0.5"
+    memory: "1Gi"
+
+persistence:
+  enabled: true
+  size: 10Gi
+
+service:
+  type: LoadBalancer
+  ports:
+    - name: p2p
+      port: 30533
+      # targetPort: 30533
+    - name: rpc
+      port: 9953
+      targetPort: 9953
+    - name: ws
+      port: 9964
+      targetPort: 9964

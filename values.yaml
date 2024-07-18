@@ -1,0 +1,48 @@
+name: opticonomy-node
+replicaCount: 1
+
+image:
+  repository: dimkobo/opticonomy-testnet-node
+  tag: latest
+  pullPolicy: IfNotPresent
+
+node:
+  chain: opticonomy
+  role: validator
+  flags:
+    - --base-path=/data
+    - --chain=./opticonomy-public-testnet-raw.json
+    - --validator
+    - --name=Node
+    - --port=30333
+    - --ws-port=9944
+    - --rpc-port=9933
+    - --rpc-cors=all
+    - --rpc-methods=Unsafe
+
+resources:
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+  requests:
+    cpu: "0.5"
+    memory: "512Mi"
+
+persistence:
+  enabled: true
+  size: 10Gi
+  storageClass: ""
+
+service:
+  type: ClusterIP
+  rpcPort: 9933
+  wsPort: 9944
+  p2pPort: 30333
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
