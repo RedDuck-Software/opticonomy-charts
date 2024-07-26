@@ -6,17 +6,20 @@ image:
   pullPolicy: Always
 
 nodeConfig:
-  basePath: /data/node1
-  chain: /opticonomy-public-testnet-raw.json
-  name: ValidatorNode
-  keyFile: /scripts/Node1_keyfile
-  keystorePath: /scripts/Node1_keystore
+  basePath: /data/node2
+  chain: ./opticonomy-public-testnet-raw.json
+  name: validatornNode
+  keyFile: ./scripts/Node2_keyfile
+  keystorePath: ./scripts/Node2_keystore
   port: 30433
   rpcPort: 9943
   wsPort: 9954
   telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
-  args:
-    - "--validator"
+  pruning: 250
+  bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+  validator: true
+  rpcCors: null
+
 
 resources:
   limits:
@@ -31,14 +34,7 @@ persistence:
   size: 10Gi
 
 service:
-  type: ClusterIP  # Ensure it's only accessible within the cluster
-  ports:
-    - name: p2p
-      port: 30433
-      targetPort: 30433
-    - name: rpc
-      port: 9943
-      targetPort: 9943
-    - name: ws
-      port: 9954
-      targetPort: 9954
+  type: ClusterIP
+  rpcPort: 9943
+  wsPort: 9954
+  p2pPort: 30433

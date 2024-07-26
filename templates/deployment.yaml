@@ -30,16 +30,14 @@ spec:
             - --node-key-file={{ .Values.nodeConfig.keyFile }}
             - --keystore-path={{ .Values.nodeConfig.keystorePath }}
             - --bootnodes={{ .Values.nodeConfig.bootnodes }}
-            - --log=network=trace
-            - --log=sync=trace
-            # - --discover-local
-            # - --log=network=debug
-            # - --log=sync=debug
-            # - --log=rpc=debug
-            # - --log=txpool=debug
-            # - --reserved-nodes=/ip4/1.2.3.5/tcp/30334/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
-            # - --reserved-nodes=/ip4/1.2.3.6/tcp/30335/p2p/12D3KooWEa9rnhRf3uVGqbYEJ7SfnZUnPjvDUiQWE6EqwgeKTMiR
-            # - --reserved-only
+            {{- if .Values.nodeConfig.validator }}
+            - --validator
+            {{- end }}
+            - --rpc-cors={{ .Values.nodeConfig.rpcCors }}
+            - --rpc-methods=safe
+          volumeMounts:
+            - name: keystore-storage
+              mountPath: {{ .Values.nodeConfig.keystorePath }}
           ports:
             - containerPort: {{ .Values.service.rpcPort }}
               name: rpc
@@ -54,3 +52,7 @@ spec:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
               memory: {{ .Values.resources.requests.memory }}
+      volumes:
+        - name: keystore-storage
+          persistentVolumeClaim:
+            claimName: {{ include "opticonomy-node.fullname" . }}

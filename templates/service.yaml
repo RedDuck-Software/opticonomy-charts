@@ -8,10 +8,13 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.rpcPort }}
+      targetPort: {{ .Values.service.rpcPort }}
       name: rpc
     - port: {{ .Values.service.wsPort }}
+      targetPort: {{ .Values.service.wsPort }}
       name: ws
     - port: {{ .Values.service.p2pPort }}
+      targetPort: {{ .Values.service.p2pPort }}
       name: p2p
   selector:
     app: {{ include "opticonomy-node.name" . }}

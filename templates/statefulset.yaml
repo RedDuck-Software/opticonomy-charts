@@ -1,0 +1,74 @@
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: opticonomy-node
+# spec:
+#   serviceName: "opticonomy-node"
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: opticonomy-node
+#   template:
+#     metadata:
+#       labels:
+#         app: opticonomy-node
+#     spec:
+#       containers:
+#         - name: opticonomy-node
+#           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+#           imagePullPolicy: {{ .Values.image.pullPolicy }}
+#           args:
+#             - --base-path={{ .Values.nodeConfig.basePath }}
+#             - --chain={{ .Values.nodeConfig.chain}}
+#             - --name={{ .Values.nodeConfig.name }}
+#             - --port={{ .Values.nodeConfig.port }}
+#             - --ws-port={{ .Values.nodeConfig.wsPort }}
+#             - --rpc-port={{ .Values.nodeConfig.rpcPort }}
+#             - --telemetry-url={{ .Values.nodeConfig.telemetryUrl }}
+#             - --pruning={{ .Values.nodeConfig.pruning }}
+#             - --node-key-file={{ .Values.nodeConfig.keyFile }}
+#             - --keystore-path={{ .Values.nodeConfig.keystorePath }}
+#             - --bootnodes={{ .Values.nodeConfig.bootnodes }}
+#             - {{- if .Values.nodeConfig.validator }}
+#             - --validator
+#             - {{- end }}
+#           ports:
+#             - containerPort: {{ .Values.service.rpcPort }}
+#               name: rpc
+#             - containerPort: {{ .Values.service.wsPort }}
+#               name: ws
+#             - containerPort: {{ .Values.service.p2pPort }}
+#               name: p2p
+#           volumeMounts:
+#             - name: data
+#               mountPath: {{ .Values.nodeConfig.basePath }}
+#             - name: keystore-storage
+#               mountPath: {{ .Values.nodeConfig.keystorePath }}
+#           resources:
+#             limits:
+#               cpu: {{ .Values.resources.limits.cpu }}
+#               memory: {{ .Values.resources.limits.memory }}
+#             requests:
+#               cpu: {{ .Values.resources.requests.cpu }}
+#               memory: {{ .Values.resources.requests.memory }}
+#   volumeClaimTemplates:
+#     - metadata:
+#         name: data
+#       spec:
+#         accessModes: ["ReadWriteOnce"]
+#         resources:
+#           requests:
+#             storage: {{ .Values.persistence.size }}
+#         storageClassName: {{ .Values.persistence.storageClass }}
+#     - metadata:
+#         name: keystore-storage
+#       spec:
+#         accessModes: ["ReadWriteOnce"]
+#         resources:
+#           requests:
+#             storage: 1Gi
+#         storageClassName: {{ .Values.persistence.storageClass }}
+#   updateStrategy:
+#     type: RollingUpdate
+#     rollingUpdate:
+#       partition: 0

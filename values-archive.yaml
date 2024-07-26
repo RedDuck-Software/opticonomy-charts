@@ -16,8 +16,11 @@ nodeConfig:
   wsPort: 9944
   telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
   pruning: archive
-  bootnodes: /dns4/opticonomy-node-opticonomy-node-archive.default.svc.cluster.local/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
-  # bootnodes: /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+  bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+  validator: true
+  rpcCors: null
+  
+
 
 resources:
   limits:
@@ -30,16 +33,9 @@ resources:
 persistence:
   enabled: true
   size: 10Gi
-
+  
 service:
-  type: LoadBalancer  # Ensure it's only accessible within the cluster
-  ports:
-    - name: p2p
-      port: 30333
-      # targetPort: 30333
-    - name: rpc
-      port: 9933
-      targetPort: 9933
-    - name: ws
-      port: 9944
-      targetPort: 9944
+  type: ClusterIP
+  rpcPort: 9933
+  wsPort: 9944
+  p2pPort: 30333
