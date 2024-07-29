@@ -5,6 +5,7 @@ image:
   repository: dimkobo/opticonomy-testnet-node
   tag: latest
   pullPolicy: IfNotPresent
+  architecture: "amd64"
 
 node:
   chain: opticonomy

@@ -34,7 +34,7 @@ spec:
             - --validator
             {{- end }}
             - --rpc-cors={{ .Values.nodeConfig.rpcCors }}
-            - --rpc-methods=safe
+            - --rpc-methods=Safe
           volumeMounts:
             - name: keystore-storage
               mountPath: {{ .Values.nodeConfig.keystorePath }}
