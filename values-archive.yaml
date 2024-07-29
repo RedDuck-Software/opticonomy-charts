@@ -4,7 +4,6 @@ image:
   repository: dimkobo/opticonomy-testnet-node
   tag: latest
   pullPolicy: Always
-  architecture: "amd64"
 
 nodeConfig:
   basePath: /data/node1
