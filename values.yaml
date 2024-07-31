@@ -3,7 +3,7 @@ replicaCount: 1
 
 image:
   repository: dimkobo/opticonomy-testnet-node
-  tag: amd64
+  tag: latest
   pullPolicy: IfNotPresent
 
 node:
