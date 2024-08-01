@@ -19,6 +19,7 @@ nodeConfig:
   bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
   validator: true
   rpcCors: null
+  rpcMethods: Safe
 
 
 resources:
