@@ -11,7 +11,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: wsstestnet.opticonomy.com
+    - host: wsstestnet2.opticonomy.com
       http:
         paths:
           - path: /
@@ -21,7 +21,18 @@ spec:
                 name: opticonomy-node-rpc
                 port:
                   number: 9953
+    - host: testnetmanager.opticonomy.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: testnet-manager
+                port:
+                  number: 80
   tls:
     - hosts:
-        - wsstestnet.opticonomy.com
+        - wsstestnet2.opticonomy.com
+        - testnetmanager.opticonomy.com
       secretName: rpc-tls
