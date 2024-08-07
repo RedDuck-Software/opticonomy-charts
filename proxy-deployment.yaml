@@ -34,10 +34,18 @@ data:
   nginx.conf: |
     events {}
     http {
+      upstream backend {
+        server opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9964;
+      }
       server {
         listen 80;
         location / {
-          proxy_pass http://opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9964;
+          proxy_pass http://backend;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+          proxy_set_header Host $host;
+          proxy_cache_bypass $http_upgrade;
         }
       }
     }
