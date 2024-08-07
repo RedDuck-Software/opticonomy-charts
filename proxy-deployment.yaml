@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rpc-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rpc-proxy
+  template:
+    metadata:
+      labels:
+        app: rpc-proxy
+    spec:
+      containers:
+      - name: rpc-proxy
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    events {}
+    http {
+      server {
+        listen 80;
+        location / {
+          proxy_pass http://opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9964;
+        }
+      }
+    }

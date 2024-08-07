@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rpc-node-service
+  name: http-rpc-node-service
   namespace: default
 spec:
   type: LoadBalancer
