@@ -35,6 +35,12 @@ spec:
             {{- end }}
             - --rpc-cors={{ .Values.nodeConfig.rpcCors }}
             - --rpc-methods={{ .Values.nodeConfig.rpcMethods }}
+            {{- if .Values.nodeConfig.exposeExternal.ws }}
+            - --ws-external
+            {{- end }}
+            {{- if .Values.nodeConfig.exposeExternal.rpc }}
+            - --rpc-external
+            {{- end }}
           volumeMounts:
             - name: keystore-storage
               mountPath: {{ .Values.nodeConfig.keystorePath }}

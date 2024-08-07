@@ -20,6 +20,9 @@ nodeConfig:
   validator: true
   rpcCors: null
   rpcMethods: Safe
+  exposeExternal:
+    ws: false
+    rpc: false
 
 
 resources:
