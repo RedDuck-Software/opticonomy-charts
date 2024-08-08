@@ -38,7 +38,7 @@ persistence:
   size: 10Gi
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   rpcPort: 9953
   wsPort: 9964
   p2pPort: 30533
