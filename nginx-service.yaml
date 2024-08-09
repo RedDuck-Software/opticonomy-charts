@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: http-rpc-node-service
-  namespace: default
+  name: rpc-proxy-service
 spec:
   type: LoadBalancer
   selector:
-    app: opticonomy-node
+    app: rpc-proxy
   ports:
   - name: rpc
     port: 9953
     targetPort: 9953
+  - name: ws
+    port: 9964
+    targetPort: 9964

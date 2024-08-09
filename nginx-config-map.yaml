@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    events {}
+    http {
+      server {
+        listen 9953;
+        location / {
+          proxy_pass http://opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9953;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+          proxy_set_header Host $host;
+        }
+      }
+
+      server {
+        listen 9964;
+        location / {
+          proxy_pass http://opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9964;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+          proxy_set_header Host $host;
+        }
+      }
+    }
