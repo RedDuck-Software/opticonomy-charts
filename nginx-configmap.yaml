@@ -6,27 +6,20 @@ data:
   nginx.conf: |
     events {}
     http {
-      upstream rpc_backend {
-        server opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9953;
-      }
-
-      upstream ws_backend {
-        server opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9964;
-      }
-
       server {
-        listen 80;
-
-        location /rpc {
-          proxy_pass http://rpc_backend;
-          proxy_http_version 1.1;
+        listen 9953;
+        location / {
+          proxy_pass http://opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9953;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection "upgrade";
           proxy_set_header Host $host;
         }
+      }
 
-        location /ws {
-          proxy_pass http://ws_backend;
+      server {
+        listen 9964;
+        location / {
+          proxy_pass http://opticonomy-node-opticonomy-node-rpc.default.svc.cluster.local:9964;
           proxy_http_version 1.1;
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection "upgrade";
@@ -34,4 +27,3 @@ data:
         }
       }
     }
-
