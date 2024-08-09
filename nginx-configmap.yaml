@@ -20,6 +20,11 @@ data:
           proxy_connect_timeout 60s;
           proxy_read_timeout 60s;
           proxy_send_timeout 60s;
+
+          # Retry settings
+          proxy_next_upstream error timeout http_502 http_503 http_504;
+          proxy_next_upstream_tries 5;
+          proxy_next_upstream_timeout 60s;
         }
 
         location /ws {
@@ -33,6 +38,11 @@ data:
           proxy_connect_timeout 60s;
           proxy_read_timeout 60s;
           proxy_send_timeout 60s;
+
+          # Retry settings
+          proxy_next_upstream error timeout http_502 http_503 http_504;
+          proxy_next_upstream_tries 5;
+          proxy_next_upstream_timeout 60s;
         }
       }
     }
