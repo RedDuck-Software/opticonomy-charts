@@ -16,8 +16,7 @@ spec:
       - name: rpc-proxy
         image: nginx:latest
         ports:
-        - containerPort: 9953
-        - containerPort: 9964
+        - containerPort: 80
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/nginx.conf
