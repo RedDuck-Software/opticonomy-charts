@@ -19,7 +19,7 @@ nodeConfig:
   bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
   validator: false
   rpcCors: all
-  rpcMethods: Unsafe
+  rpcMethods: Safe
   exposeExternal:
     ws: true
     rpc: true
@@ -38,7 +38,7 @@ persistence:
   size: 10Gi
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   rpcPort: 9953
   wsPort: 9964
   p2pPort: 30533
