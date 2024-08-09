@@ -14,13 +14,13 @@ spec:
     spec:
       containers:
       - name: rpc-proxy
-        image: nginx:latest
-        ports:
-        - containerPort: 80
+        image: nginx:alpine
         volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
+        ports:
+        - containerPort: 80
       volumes:
       - name: nginx-config
         configMap:
