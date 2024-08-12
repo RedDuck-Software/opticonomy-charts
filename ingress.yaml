@@ -4,10 +4,13 @@ metadata:
   name: testnet-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/websocket-services: "ws-service"
 spec:
+  tls:
+  - hosts:
+    - wsstestnet2.opticonomy.com
+    secretName: rpc-tls
   rules:
-  - host: "34.243.207.232.nip.io"  
+  - host: wsstestnet2.opticonomy.com
     http:
       paths:
       - path: /rpc
