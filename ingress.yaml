@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: testnet-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/websocket-services: "ws-service"
+spec:
+  rules:
+  - host: "34.243.207.232.nip.io"  
+    http:
+      paths:
+      - path: /rpc
+        pathType: Prefix
+        backend:
+          service:
+            name: opticonomy-node-opticonomy-node-rpc
+            port:
+              number: 9953
+      - path: /ws
+        pathType: Prefix
+        backend:
+          service:
+            name: opticonomy-node-opticonomy-node-rpc
+            port:
+              number: 9964
