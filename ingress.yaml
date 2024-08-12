@@ -32,3 +32,10 @@ spec:
             name: opticonomy-node-opticonomy-node-rpc
             port:
               number: 9964
+      - path: /archive
+        pathType: Prefix
+        backend:
+          service:
+            name: opticonomy-node-opticonomy-node-archive
+            port:
+              number: 9933
