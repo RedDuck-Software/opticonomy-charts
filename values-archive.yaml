@@ -14,7 +14,7 @@ nodeConfig:
   port: 30333
   rpcPort: 9933
   wsPort: 9944
-  telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
+  # telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
   pruning: archive
   bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
   validator: true
@@ -38,7 +38,7 @@ persistence:
   size: 30Gi
   
 service:
-  type: ClusterIP
+  type: LoadBalancer
   rpcPort: 9933
   wsPort: 9944
   p2pPort: 30333
