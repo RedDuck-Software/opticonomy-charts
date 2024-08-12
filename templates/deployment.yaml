@@ -25,7 +25,7 @@ spec:
             - --port={{ .Values.nodeConfig.port }}
             - --ws-port={{ .Values.nodeConfig.wsPort }}
             - --rpc-port={{ .Values.nodeConfig.rpcPort }}
-            - --telemetry-url={{ .Values.nodeConfig.telemetryUrl }}
+            # - --telemetry-url={{ .Values.nodeConfig.telemetryUrl }}
             - --pruning={{ .Values.nodeConfig.pruning }}
             - --node-key-file={{ .Values.nodeConfig.keyFile }}
             - --keystore-path={{ .Values.nodeConfig.keystorePath }}

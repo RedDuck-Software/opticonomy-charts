@@ -14,7 +14,7 @@ nodeConfig:
   port: 30533
   rpcPort: 9953
   wsPort: 9964
-  telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
+  # telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
   pruning: 250
   bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
   validator: false
