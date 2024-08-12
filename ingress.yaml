@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
-    nginx.ingress.kubernetes.io/websocket-services: "opticonomy-node-opticonomy-node-rpc"
+    nginx.ingress.kubernetes.io/websocket-services: "opticonomy-node-opticonomy-node-rpc,opticonomy-node-opticonomy-node-archive"
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   tls:
