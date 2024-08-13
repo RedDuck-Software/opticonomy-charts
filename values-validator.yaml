@@ -23,7 +23,8 @@ nodeConfig:
   exposeExternal:
     ws: false
     rpc: false
-  
+  labels:
+    app: validator-node
   
 
 
