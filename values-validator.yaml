@@ -24,8 +24,7 @@ nodeConfig:
     ws: false
     rpc: false
   
-  labels:
-    app: opticonomy-node-validator
+  
 
 
 resources:

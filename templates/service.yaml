@@ -17,4 +17,4 @@ spec:
       targetPort: {{ .Values.service.p2pPort }}
       name: p2p
   selector:
-    app: {{ .Values.nodeConfig.labels.app }}
+    app: {{ include "opticonomy-node.name" . }}

@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ include "opticonomy-node.fullname" . }}
   labels:
-    app: {{ .Values.nodeConfig.labels.app }}
+    app: {{ include "opticonomy-node.name" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.nodeConfig.labels.app }}
+      app: {{ include "opticonomy-node.name" . }}
   template:
     metadata:
       labels:
-        app: {{ .Values.nodeConfig.labels.app }}
+        app: {{ include "opticonomy-node.name" . }}
     spec:
       containers:
         - name: opticonomy-node

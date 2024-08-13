@@ -24,8 +24,6 @@ nodeConfig:
     ws: true
     rpc: true
   
-  labels:
-    app: opticonomy-node-rpc
 
 
 resources:
