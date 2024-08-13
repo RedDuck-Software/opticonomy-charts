@@ -1,18 +1,37 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: {{ include "opticonomy-node.fullname" . }}
+#   labels:
+#     app: {{ include "opticonomy-node.name" . }}
+    
+# spec:
+#   replicas: {{ .Values.replicaCount }}
+#   selector:
+#     matchLabels:
+#       app: {{ include "opticonomy-node.name" . }}
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ include "opticonomy-node.name" . }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "opticonomy-node.fullname" . }}
   labels:
     app: {{ include "opticonomy-node.name" . }}
+    role: {{ .Values.nodeConfig.name | quote }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ include "opticonomy-node.name" . }}
+      role: {{ .Values.nodeConfig.name | quote }}
   template:
     metadata:
       labels:
         app: {{ include "opticonomy-node.name" . }}
+        role: {{ .Values.nodeConfig.name | quote }}
     spec:
       containers:
         - name: opticonomy-node

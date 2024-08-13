@@ -15,4 +15,23 @@ spec:
       name: ws
   selector:
     app: opticonomy-node
-    name: rpcnode
+    role: "rpcnode"
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: rpc-node-rpc-ws
+#   labels:
+#     app: rpc-node-rpc-ws
+# spec:
+#   type: LoadBalancer
+#   ports:
+#     - port: 9953
+#       targetPort: 9953
+#       name: rpc
+#     - port: 9964
+#       targetPort: 9964
+#       name: ws
+#   selector:
+#     app: opticonomy-node
+#     name: rpcnode
