@@ -17,9 +17,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: shared-rpc-ws-service
+  name: {{ .Release.Name }}-rpc-ws
   labels:
-    app: shared-rpc-ws
+    app: {{ .Release.Name }}-rpc-ws
 spec:
   type: LoadBalancer
   ports:
@@ -30,7 +30,7 @@ spec:
       targetPort: 9964
       name: ws
   selector:
-    app: opticonomy-node-rpc
+    app: {{ include "opticonomy-node.name" . }}
 
 
 
