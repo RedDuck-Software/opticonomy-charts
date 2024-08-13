@@ -10,6 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/websocket-services: "opticonomy-node-opticonomy-node-rpc,opticonomy-node-opticonomy-node-archive"
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
     - wsstestnet2.opticonomy.com
@@ -32,17 +33,3 @@ spec:
             name: opticonomy-node-opticonomy-node-rpc
             port:
               number: 9964
-      - path: /archive-rpc
-        pathType: Prefix
-        backend:
-          service:
-            name: opticonomy-node-opticonomy-node-archive
-            port:
-              number: 9933
-      - path: /archive-ws
-        pathType: Prefix
-        backend:
-          service:
-            name: opticonomy-node-opticonomy-node-archive
-            port:
-              number: 9944
