@@ -1,20 +1,56 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "opticonomy-node.fullname" . }}
+  name: {{ .Values.nodeConfig.name }}-p2p
   labels:
-    app: {{ include "opticonomy-node.name" . }}
+    app: {{ .Values.nodeConfig.name }}-p2p
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.service.rpcPort }}
-      targetPort: {{ .Values.service.rpcPort }}
-      name: rpc
-    - port: {{ .Values.service.wsPort }}
-      targetPort: {{ .Values.service.wsPort }}
-      name: ws
     - port: {{ .Values.service.p2pPort }}
       targetPort: {{ .Values.service.p2pPort }}
       name: p2p
   selector:
-    app: {{ include "opticonomy-node.name" . }}
+    app: {{ .Values.nodeConfig.name }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shared-rpc-ws-service
+  labels:
+    app: shared-rpc-ws
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9953
+      targetPort: 9953
+      name: rpc
+    - port: 9964
+      targetPort: 9964
+      name: ws
+  selector:
+    app: opticonomy-node-rpc
+
+
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: {{ include "opticonomy-node.fullname" . }}
+#   labels:
+#     app: {{ include "opticonomy-node.name" . }}
+# spec:
+#   type: {{ .Values.service.type }}
+#   ports:
+#     - port: {{ .Values.service.rpcPort }}
+#       targetPort: {{ .Values.service.rpcPort }}
+#       name: rpc
+#     - port: {{ .Values.service.wsPort }}
+#       targetPort: {{ .Values.service.wsPort }}
+#       name: ws
+#     - port: {{ .Values.service.p2pPort }}
+#       targetPort: {{ .Values.service.p2pPort }}
+#       name: p2p
+#   selector:
+#     app: {{ include "opticonomy-node.name" . }}
