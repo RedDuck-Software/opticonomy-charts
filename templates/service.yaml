@@ -1,39 +1,20 @@
-# p2p-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.nodeConfig.name }}-p2p
+  name: {{ include "opticonomy-node.fullname" . }}
   labels:
-    app: {{ .Values.nodeConfig.name }}-p2p
+    app: {{ include "opticonomy-node.name" . }}
 spec:
-  type: ClusterIP
+  type: {{ .Values.service.type }}
   ports:
+    # - port: {{ .Values.service.rpcPort }}
+    #   targetPort: {{ .Values.service.rpcPort }}
+    #   name: rpc
+    # - port: {{ .Values.service.wsPort }}
+    #   targetPort: {{ .Values.service.wsPort }}
+    #   name: ws
     - port: {{ .Values.service.p2pPort }}
       targetPort: {{ .Values.service.p2pPort }}
       name: p2p
   selector:
-    app: {{ .Values.nodeConfig.name }}
-
-
-
-
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: {{ include "opticonomy-node.fullname" . }}
-#   labels:
-#     app: {{ include "opticonomy-node.name" . }}
-# spec:
-#   type: {{ .Values.service.type }}
-#   ports:
-#     - port: {{ .Values.service.rpcPort }}
-#       targetPort: {{ .Values.service.rpcPort }}
-#       name: rpc
-#     - port: {{ .Values.service.wsPort }}
-#       targetPort: {{ .Values.service.wsPort }}
-#       name: ws
-#     - port: {{ .Values.service.p2pPort }}
-#       targetPort: {{ .Values.service.p2pPort }}
-#       name: p2p
-#   selector:
-#     app: {{ include "opticonomy-node.name" . }}
+    app: {{ include "opticonomy-node.name" . }}

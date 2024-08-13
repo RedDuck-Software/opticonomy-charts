@@ -1,35 +1,35 @@
-name: opticonomy-node
-replicaCount: 1
+# name: opticonomy-node
+# replicaCount: 1
 
-image:
-  repository: dimkobo/opticonomy-testnet-node
-  tag: amd64
-  pullPolicy: IfNotPresent
+# image:
+#   repository: dimkobo/opticonomy-testnet-node
+#   tag: amd64
+#   pullPolicy: IfNotPresent
 
-node:
-  chain: opticonomy
-  role: validator
-  bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
-  flags:
-    - --rpc-methods=Safe
+# node:
+#   chain: opticonomy
+#   role: validator
+#   bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
+#   flags:
+#     - --rpc-methods=Safe
 
-resources:
-  limits:
-    cpu: "0.5"
-    memory: "1Gi"
-  requests:
-    cpu: "0.5"
-    memory: "512Mi"
+# resources:
+#   limits:
+#     cpu: "0.5"
+#     memory: "1Gi"
+#   requests:
+#     cpu: "0.5"
+#     memory: "512Mi"
 
-persistence:
-  enabled: true
-  size: 10Gi
-  storageClass: ""
+# persistence:
+#   enabled: true
+#   size: 10Gi
+#   storageClass: ""
 
-ingress:
-  enabled: false
-  annotations: {}
-  hosts:
-    - host: chart-example.local
-      paths: []
-  tls: []
+# ingress:
+#   enabled: false
+#   annotations: {}
+#   hosts:
+#     - host: chart-example.local
+#       paths: []
+#   tls: []

@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.nodeConfig.name }}
+  name: {{ include "opticonomy-node.fullname" . }}
   labels:
-    app: {{ .Values.nodeConfig.name }}
+    app: {{ include "opticonomy-node.name" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.nodeConfig.name }}
+      app: {{ include "opticonomy-node.name" . }}
   template:
     metadata:
       labels:
-        app: {{ .Values.nodeConfig.name }}
+        app: {{ include "opticonomy-node.name" . }}
     spec:
       containers:
         - name: opticonomy-node
@@ -45,10 +45,10 @@ spec:
             - name: keystore-storage
               mountPath: {{ .Values.nodeConfig.keystorePath }}
           ports:
-            - containerPort: {{ .Values.service.rpcPort }}
-              name: rpc
-            - containerPort: {{ .Values.service.wsPort }}
-              name: ws
+            # - containerPort: {{ .Values.service.rpcPort }}
+            #   name: rpc
+            # - containerPort: {{ .Values.service.wsPort }}
+            #   name: ws
             - containerPort: {{ .Values.service.p2pPort }}
               name: p2p
           resources:
