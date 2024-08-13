@@ -8,7 +8,7 @@ image:
 nodeConfig:
   basePath: /data/node2
   chain: ./opticonomy-public-testnet-raw.json
-  name: validatornNode
+  name: validatornode
   keyFile: ./scripts/Node2_keyfile
   keystorePath: ./scripts/Node2_keystore
   port: 30433
