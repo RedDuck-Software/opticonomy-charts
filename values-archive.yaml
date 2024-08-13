@@ -40,6 +40,6 @@ persistence:
   
 service:
   type: ClusterIP
-  # rpcPort: 9933
-  # wsPort: 9944
+  rpcPort: 9933
+  wsPort: 9944
   p2pPort: 30333
