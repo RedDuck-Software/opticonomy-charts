@@ -8,7 +8,7 @@ image:
 nodeConfig:
   basePath: /data/node3
   chain: ./opticonomy-public-testnet-raw.json
-  name: RPCNode
+  name: rpcnode
   keyFile: ./scripts/Node3_keyfile
   keystorePath: ./scripts/Node3_keystore
   port: 30533
