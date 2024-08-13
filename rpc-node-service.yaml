@@ -1,4 +1,3 @@
-# rpc-ws-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -15,4 +14,4 @@ spec:
       targetPort: 9964
       name: ws
   selector:
-    app: {{ include "opticonomy-node.name" . }}
+    app: {{ .Values.nodeConfig.name }}
