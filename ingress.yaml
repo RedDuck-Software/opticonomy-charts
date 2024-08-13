@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
-    nginx.ingress.kubernetes.io/websocket-services: "opticonomy-node-opticonomy-node-rpc"
+    nginx.ingress.kubernetes.io/websocket-services: "rpc-node-rpc-ws"
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   tls:
@@ -22,20 +22,56 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: opticonomy-node-opticonomy-node-rpc
+            name: rpc-node-rpc-ws
             port:
               number: 9953
       - path: /ws
         pathType: Prefix
         backend:
           service:
-            name: opticonomy-node-opticonomy-node-rpc
+            name: rpc-node-rpc-ws
             port:
               number: 9964
-      - path: /hello
-        pathType: Prefix
-        backend:
-          service:
-            name: hello-world-service
-            port:
-              number: 80
+
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: testnet-ingress
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+#     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+#     nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"
+#     nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"
+#     nginx.ingress.kubernetes.io/websocket-services: "opticonomy-node-opticonomy-node-rpc"
+#     nginx.ingress.kubernetes.io/use-regex: "true"
+# spec:
+#   tls:
+#   - hosts:
+#     - wsstestnet2.opticonomy.com
+#     secretName: rpc-tls
+#   rules:
+#   - host: wsstestnet2.opticonomy.com
+#     http:
+#       paths:
+#       - path: /rpc
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: opticonomy-node-opticonomy-node-rpc
+#             port:
+#               number: 9953
+#       - path: /ws
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: opticonomy-node-opticonomy-node-rpc
+#             port:
+#               number: 9964
+#       - path: /hello
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: hello-world-service
+#             port:
+#               number: 80
