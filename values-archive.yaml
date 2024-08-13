@@ -23,6 +23,9 @@ nodeConfig:
   exposeExternal:
     ws: false
     rpc: false
+  
+  labels:
+    app: opticonomy-node-archive
 
 
 resources:

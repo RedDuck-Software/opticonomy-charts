@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ include "opticonomy-node.name" . }}
+        app: {{ .Values.nodeConfig.labels.app }}
     spec:
       containers:
         - name: opticonomy-node
