@@ -23,8 +23,8 @@ nodeConfig:
   exposeExternal:
     ws: true
     rpc: true
-  labels:
-    app: rpc-node
+  # labels:
+  #   app: rpc-node
 
 
 resources:

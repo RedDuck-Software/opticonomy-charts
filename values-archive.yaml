@@ -23,8 +23,8 @@ nodeConfig:
   exposeExternal:
     ws: false
     rpc: false
-  labels:
-    app: archive-node
+  # labels:
+  #   app: archive-node
 
 
 resources:
