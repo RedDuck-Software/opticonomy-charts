@@ -14,4 +14,4 @@ spec:
       targetPort: 9964
       name: ws
   selector:
-    app: opticonomy-node
+    app: opticonomy-node-opticonomy-node-rpc
