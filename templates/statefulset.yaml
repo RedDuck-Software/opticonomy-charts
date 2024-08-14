@@ -1,64 +1,53 @@
-{{- if .Values.archive.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: archive-node
   labels:
-    app: archive-node
+    app: opticonomy-node
 spec:
   selector:
     matchLabels:
-      app: archive-node
+      app: opticonomy-node
   serviceName: "archive-node"
   replicas: 1
   template:
     metadata:
       labels:
-        app: archive-node
+        app: opticonomy-node
     spec:
       containers:
-        - name: opticonomy-node
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          args:
-            - --base-path={{ .Values.nodeConfig.basePath }}
-            - --chain={{ .Values.nodeConfig.chain }}
-            - --name={{ .Values.nodeConfig.name }}
-            - --port={{ .Values.nodeConfig.port }}
-            - --ws-port={{ .Values.nodeConfig.wsPort }}
-            - --rpc-port={{ .Values.nodeConfig.rpcPort }}
-            - --pruning={{ .Values.nodeConfig.pruning }}
-            - --node-key-file={{ .Values.nodeConfig.keyFile }}
-            - --keystore-path={{ .Values.nodeConfig.keystorePath }}
-            - --bootnodes={{ .Values.nodeConfig.bootnodes }}
-            {{- if .Values.nodeConfig.validator }}
-            - --validator
-            {{- end }}
-            - --rpc-cors={{ .Values.nodeConfig.rpcCors }}
-            - --rpc-methods={{ .Values.nodeConfig.rpcMethods }}
-            {{- if .Values.nodeConfig.exposeExternal.ws }}
-            - --ws-external
-            {{- end }}
-            {{- if .Values.nodeConfig.exposeExternal.rpc }}
-            - --rpc-external
-            {{- end }}
-          volumeMounts:
-            - name: blockchain
-              mountPath: {{ .Values.nodeConfig.basePath }}
-            - name: keystore
-              mountPath: {{ .Values.nodeConfig.keystorePath }}
-  volumeClaimTemplates:
-    - metadata:
-        name: blockchain
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 40Gi
-    - metadata:
-        name: keystore
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
-{{- end }}
+      - name: opticonomy-node
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        args:
+          - --base-path={{ .Values.nodeConfig.basePath }}
+          - --chain={{ .Values.nodeConfig.chain}}
+          - --name={{ .Values.nodeConfig.name }}
+          - --port={{ .Values.nodeConfig.port }}
+          - --ws-port={{ .Values.nodeConfig.wsPort }}
+          - --rpc-port={{ .Values.nodeConfig.rpcPort }}
+          - --pruning={{ .Values.nodeConfig.pruning }}
+          - --node-key-file={{ .Values.nodeConfig.keyFile }}
+          - --keystore-path={{ .Values.nodeConfig.keystorePath }}
+          - --bootnodes={{ .Values.nodeConfig.bootnodes }}
+          {{- if .Values.nodeConfig.validator }}
+          - --validator
+          {{- end }}
+          - --rpc-cors={{ .Values.nodeConfig.rpcCors }}
+          - --rpc-methods={{ .Values.nodeConfig.rpcMethods }}
+          {{- if .Values.nodeConfig.exposeExternal.ws }}
+          - --ws-external
+          {{- end }}
+          {{- if .Values.nodeConfig.exposeExternal.rpc }}
+          - --rpc-external
+          {{- end }}
+        volumeMounts:
+          - name: data
+            mountPath: {{ .Values.nodeConfig.basePath }}
+volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 40Gi
