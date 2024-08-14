@@ -1,19 +1,4 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: {{ include "opticonomy-node.fullname" . }}
-#   labels:
-#     app: {{ include "opticonomy-node.name" . }}
-    
-# spec:
-#   replicas: {{ .Values.replicaCount }}
-#   selector:
-#     matchLabels:
-#       app: {{ include "opticonomy-node.name" . }}
-#   template:
-#     metadata:
-#       labels:
-#         app: {{ include "opticonomy-node.name" . }}
+{{- if not .Values.archive.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -64,10 +49,6 @@ spec:
             - name: keystore-storage
               mountPath: {{ .Values.nodeConfig.keystorePath }}
           ports:
-            # - containerPort: {{ .Values.service.rpcPort }}
-            #   name: rpc
-            # - containerPort: {{ .Values.service.wsPort }}
-            #   name: ws
             - containerPort: {{ .Values.service.p2pPort }}
               name: p2p
           resources:
@@ -81,3 +62,4 @@ spec:
         - name: keystore-storage
           persistentVolumeClaim:
             claimName: {{ include "opticonomy-node.fullname" . }}
+{{- end }}

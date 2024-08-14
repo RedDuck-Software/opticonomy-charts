@@ -24,6 +24,8 @@ nodeConfig:
     ws: false
     rpc: false
 
+archive:
+  enabled: true
 
 resources:
   limits:

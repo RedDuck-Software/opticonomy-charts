@@ -1,4 +1,4 @@
-{{- if eq .Values.nodeConfig.name "archivenode" }}
+{{- if .Values.archive.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
