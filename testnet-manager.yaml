@@ -18,16 +18,16 @@ spec:
         ports:
         - containerPort: 5000
         args:
-          - uvicorn
-          - main:app
-          - --host
-          - 0.0.0.0
-          - --port
-          - "5000"
-          - --timeout-keep-alive
-          - "3600"
-          - --workers
-          - "4"
+          # - uvicorn
+          # - main:appz
+          # - --host
+          # - 0.0.0.0
+          # - --port
+          # - "5000"
+          # - --timeout-keep-alive
+          # - "3600"
+          # - --workers
+          # - "4"
         resources:
           limits:
             cpu: "2"
