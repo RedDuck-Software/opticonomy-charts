@@ -58,8 +58,8 @@ spec:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
               memory: {{ .Values.resources.requests.memory }}
-      volumes:
-        - name: keystore-storage
-          persistentVolumeClaim:
-            claimName: {{ include "opticonomy-node.fullname" . }}
+      # volumes:
+      #   - name: keystore-storage
+      #     :persistentVolumeClaim
+      #       claimName: {{ include "opticonomy-node.fullname" . }}
 {{- end }}
