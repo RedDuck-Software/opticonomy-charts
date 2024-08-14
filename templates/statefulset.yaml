@@ -1,19 +1,20 @@
+{{- if .Values.archive.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: archive-node
   labels:
-    app: opticonomy-node
+    app: archive-node
 spec:
   selector:
     matchLabels:
-      app: opticonomy-node
+      app: archive-node
   serviceName: "archive-node"
   replicas: 1
   template:
     metadata:
       labels:
-        app: opticonomy-node
+        app: archive-node
     spec:
       containers:
       - name: opticonomy-node
@@ -43,7 +44,7 @@ spec:
         volumeMounts:
           - name: data
             mountPath: {{ .Values.nodeConfig.basePath }}
-volumeClaimTemplates:
+  volumeClaimTemplates:
   - metadata:
       name: data
     spec:
@@ -51,3 +52,4 @@ volumeClaimTemplates:
       resources:
         requests:
           storage: 40Gi
+{{- end }}
