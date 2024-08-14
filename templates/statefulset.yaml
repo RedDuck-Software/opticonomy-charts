@@ -2,19 +2,22 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: archive-node
+  name: {{ include "opticonomy-node.fullname" . }}-archive
   labels:
-    app: archive-node
+    app: {{ include "opticonomy-node.name" . }}
+    role: archive
 spec:
   selector:
     matchLabels:
-      app: archive-node
-  serviceName: "archive-node"
+      app: {{ include "opticonomy-node.name" . }}
+      role: archive
+  serviceName: "{{ include "opticonomy-node.fullname" . }}-archive"
   replicas: 1
   template:
     metadata:
       labels:
-        app: archive-node
+        app: {{ include "opticonomy-node.name" . }}
+        role: archive
     spec:
       containers:
       - name: opticonomy-node
@@ -51,5 +54,5 @@ spec:
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
-          storage: 40Gi
+          storage: 20Gi
 {{- end }}

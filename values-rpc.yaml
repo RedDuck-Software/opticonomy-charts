@@ -37,7 +37,7 @@ resources:
 
 persistence:
   enabled: true
-  size: 30Gi
+  size: 10Gi
 
 service:
   type: LoadBalancer

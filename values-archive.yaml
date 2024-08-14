@@ -37,7 +37,7 @@ resources:
 
 persistence:
   enabled: true
-  size: 40Gi
+  size: 20Gi
   
 service:
   type: ClusterIP
