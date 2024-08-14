@@ -17,9 +17,17 @@ spec:
         image: paritytech/testnet-manager:latest
         ports:
         - containerPort: 5000
-        command: ["/bin/sh", "-c"]
-        args: 
-          - gunicorn -k uvicorn.workers.UvicornWorker main:app --bind=0.0.0.0:5000 --timeout=3600 --capture-output --enable-stdio-inheritance --workers=4
+        args:
+          - uvicorn
+          - main:app
+          - --host
+          - 0.0.0.0
+          - --port
+          - "5000"
+          - --timeout-keep-alive
+          - "3600"
+          - --workers
+          - "4"
         resources:
           limits:
             cpu: "2"
