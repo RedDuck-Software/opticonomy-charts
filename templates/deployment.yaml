@@ -58,8 +58,13 @@ spec:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
               memory: {{ .Values.resources.requests.memory }}
-      # volumes:
-      #   - name: keystore-storage
-      #     :persistentVolumeClaim
-      #       claimName: {{ include "opticonomy-node.fullname" . }}
+
+      volumeMounts:
+        - name: keystore-storage
+          mountPath: {{ .Values.nodeConfig.keystorePath }}
+
+      volumes:
+        - name: keystore-storage
+          persistentVolumeClaim:
+            claimName: {{ include "opticonomy-node.fullname" . }}-keystore
 {{- end }}
