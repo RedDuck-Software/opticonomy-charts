@@ -23,8 +23,6 @@ nodeConfig:
   exposeExternal:
     ws: true
     rpc: true
-  # labels:
-  #   app: rpc-node
 
 
 resources:
@@ -41,6 +39,4 @@ persistence:
 
 service:
   type: LoadBalancer
-  # rpcPort: 9953
-  # wsPort: 9964
   p2pPort: 30533

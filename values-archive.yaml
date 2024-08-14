@@ -23,8 +23,6 @@ nodeConfig:
   exposeExternal:
     ws: false
     rpc: false
-  # labels:
-  #   app: archive-node
 
 
 resources:
@@ -37,10 +35,8 @@ resources:
 
 persistence:
   enabled: true
-  size: 30Gi
+  size: 40Gi
   
 service:
   type: ClusterIP
-  # rpcPort: 9933
-  # wsPort: 9944
   p2pPort: 30333
