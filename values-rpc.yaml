@@ -6,11 +6,11 @@ image:
   pullPolicy: Always
 
 nodeConfig:
-  basePath: /data/node3
-  chain: ./opticonomy-public-testnet-raw.json
   name: rpcnode
-  keyFile: ./scripts/Node3_keyfile
-  keystorePath: ./scripts/Node3_keystore
+  basePath: /data/{{ .Values.nodeConfig.name }}
+  chain: ./opticonomy-public-testnet-raw.json
+  keyFile: ./scripts/{{ .Values.nodeConfig.name }}_keyfile
+  keystorePath: ./scripts/{{ .Values.nodeConfig.name }}_keystore
   port: 30533
   rpcPort: 9953
   wsPort: 9964
@@ -44,13 +44,10 @@ service:
   p2pPort: 30533
 
 env:
-  - name: GITHUB_TOKEN
-    valueFrom:
-      secretKeyRef:
-        name: github-token
-        key: GITHUB_TOKEN
-  - name: SEED3
+  - name: SEED
     valueFrom:
       secretKeyRef:
         name: node-seeds
-        key: SEED3
+        key: SEED
+  - name: NODE_NAME
+    value: {{ .Values.nodeConfig.name }}

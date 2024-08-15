@@ -23,9 +23,9 @@ spec:
       - name: opticonomy-node
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         args:
+          - --name={{ .Values.nodeConfig.name }}
           - --base-path={{ .Values.nodeConfig.basePath }}
           - --chain={{ .Values.nodeConfig.chain}}
-          - --name={{ .Values.nodeConfig.name }}
           - --port={{ .Values.nodeConfig.port }}
           - --ws-port={{ .Values.nodeConfig.wsPort }}
           - --rpc-port={{ .Values.nodeConfig.rpcPort }}
