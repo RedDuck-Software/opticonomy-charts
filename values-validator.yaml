@@ -15,7 +15,7 @@ nodeConfig:
   rpcPort: 9943
   wsPort: 9954
   telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
-  pruning: 250
+  pruning: 2000
   bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
   validator: true
   rpcCors: null
@@ -42,3 +42,15 @@ persistence:
 service:
   type: ClusterIP
   p2pPort: 30433
+
+env:
+  - name: GITHUB_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: github-token
+        key: GITHUB_TOKEN
+  - name: SEED2
+    valueFrom:
+      secretKeyRef:
+        name: node-seeds
+        key: SEED2

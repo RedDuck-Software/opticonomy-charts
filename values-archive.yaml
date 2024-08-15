@@ -14,10 +14,10 @@ nodeConfig:
   port: 30333
   rpcPort: 9933
   wsPort: 9944
-  # telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
+  telemetryUrl: "wss://telemetry.polkadot.io/submit/ 0"
   pruning: archive
   bootnodes: /dns/bootnode1.opticonomy.com/tcp/30333/p2p/12D3KooWEDRxtuno5Psd4gBXh1RzouWQPUBAaCiCTkkYrKoTBjYP
-  validator: true
+  validator: false
   rpcCors: null
   rpcMethods: Safe
   exposeExternal:
@@ -42,3 +42,15 @@ persistence:
 service:
   type: ClusterIP
   p2pPort: 30333
+
+env:
+  - name: GITHUB_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: github-token
+        key: GITHUB_TOKEN
+  - name: SEED1
+    valueFrom:
+      secretKeyRef:
+        name: node-seeds
+        key: SEED1
