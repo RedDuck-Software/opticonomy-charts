@@ -7,11 +7,11 @@ image:
 
 nodeConfig:
   name: validatornode
-  basePath: /data/{{ .Values.nodeConfig.name }}
+  basePath: /data/validatornode
   chain: ./opticonomy-public-testnet-raw.json
   
-  keyFile: ./scripts/{{ .Values.nodeConfig.name }}_keyfile
-  keystorePath: ./scripts/{{ .Values.nodeConfig.name }}_keystore
+  keyFile: ./scripts/validatornode_keyfile
+  keystorePath: ./scripts/validatornode_keystore
   port: 30433
   rpcPort: 9943
   wsPort: 9954
@@ -51,4 +51,4 @@ env:
         name: node-seeds
         key: SEED
   - name: NODE_NAME
-    value: {{ .Values.nodeConfig.name }}
+    value: "validatornode"
