@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: seed-test
+spec:
+  containers:
+  - name: test-container
+    image: local-test-image:latest
+    imagePullPolicy: IfNotPresent
+    command: ["sh", "-c", "sleep 3600"]
+    env:
+    - name: SEED
+      valueFrom:
+        secretKeyRef:
+          name: node-seeds
+          key: SEED
+    - name: NODE_NAME
+      value: "testnode"
