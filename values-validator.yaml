@@ -9,7 +9,6 @@ nodeConfig:
   name: validatornode
   basePath: /data/validatornode
   chain: ./opticonomy-public-testnet-raw.json
-  
   keyFile: ./scripts/validatornode_keyfile
   keystorePath: ./scripts/validatornode_keystore
   port: 30433
