@@ -7,10 +7,10 @@ image:
 
 nodeConfig:
   name: Node2
-  basePath: /data/Node2
+  basePath: /data/validatornode
   chain: ./opticonomy-public-testnet-raw.json
-  keyFile: ./scripts/Node2_keyfile
-  keystorePath: ./scripts/Node2_keystore
+  keyFile: ./scripts/validatornode_keyfile
+  keystorePath: ./scripts/validatornode_keystore
   port: 30433
   rpcPort: 9943
   wsPort: 9954
