@@ -24,4 +24,10 @@ spec:
           mountPath: /opticonomy-testnet/data/validatornode
       restartPolicy: OnFailure
       volumes:
+      - name: keystore-storage
+        persistentVolumeClaim:
+          claimName: opticonomy-node-opticonomy-node-validator-keystore
+      - name: blockchain-storage
+        persistentVolumeClaim:
+          claimName: opticonomy-node-opticonomy-node-validator-blockchain
   backoffLimit: 1
