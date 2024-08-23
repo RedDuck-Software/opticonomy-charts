@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: generate-session-keys
+spec:
+  template:
+    spec:
+      containers:
+      - name: generate-session-keys
+        image: dimkobo/opticonomy-testnet-node:amd64
+        command: ["/bin/bash", "-c", "/opticonomy-testnet/scripts/generate_session_keys.sh"]
+        env:
+        - name: SEED
+          valueFrom:
+            secretKeyRef:
+              name: node-seeds
+              key: SEED
+        - name: NODE_NAME
+          value: "validatornode"
+        volumeMounts:
+        - name: keystore-storage
+          mountPath: /opticonomy-testnet/scripts/validatornode_keystore
+        - name: blockchain-storage
+          mountPath: /opticonomy-testnet/data/validatornode
+      restartPolicy: OnFailure
+      volumes:
+s
+  backoffLimit: 1
