@@ -6,7 +6,7 @@ image:
   pullPolicy: Always
 
 nodeConfig:
-  name: Node2
+  name: validatornode
   basePath: /data/validatornode
   chain: ./opticonomy-public-testnet-raw.json
   keyFile: ./scripts/validatornode_keyfile
