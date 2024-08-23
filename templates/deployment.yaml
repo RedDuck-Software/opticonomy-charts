@@ -18,22 +18,11 @@ spec:
         app: {{ include "opticonomy-node.name" . }}
         role: {{ .Values.nodeConfig.name | quote }}
     spec:
-      initContainers:
-        - name: env-check
-          image: busybox
-          command: ['sh', '-c', 'echo SEED=$SEED; echo NODE_NAME=$NODE_NAME']
-          env:
-            - name: SEED
-              valueFrom:
-                secretKeyRef:
-                  name: node-seeds
-                  key: SEED
-            - name: NODE_NAME
-              value: "validatornode"
       containers:
         - name: opticonomy-node
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/opticonomy-testnet/target/release/substrate-opticonomy"]
           args:
             - --name={{ .Values.nodeConfig.name }}
             - --base-path={{ .Values.nodeConfig.basePath }}
@@ -72,14 +61,6 @@ spec:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
               memory: {{ .Values.resources.requests.memory }}
-          env:
-            - name: SEED
-              valueFrom:
-                secretKeyRef:
-                  name: node-seeds
-                  key: SEED
-            - name: NODE_NAME
-              value: "validatornode"
       volumes:
         - name: keystore-storage
           persistentVolumeClaim:
@@ -88,6 +69,106 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "opticonomy-node.fullname" . }}-blockchain
 {{- end }}
+
+
+
+# {{- if not .Values.archive.enabled }}
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: {{ include "opticonomy-node.fullname" . }}
+#   labels:
+#     app: {{ include "opticonomy-node.name" . }}
+#     role: {{ .Values.nodeConfig.name | quote }}
+# spec:
+#   replicas: {{ .Values.replicaCount }}
+#   selector:
+#     matchLabels:
+#       app: {{ include "opticonomy-node.name" . }}
+#       role: {{ .Values.nodeConfig.name | quote }}
+#   template:
+#     metadata:
+#       labels:
+#         app: {{ include "opticonomy-node.name" . }}
+#         role: {{ .Values.nodeConfig.name | quote }}
+#     spec:
+#       initContainers:
+#         - name: env-check
+#           image: busybox
+#           command: ['sh', '-c', 'echo SEED=$SEED; echo NODE_NAME=$NODE_NAME']
+#           env:
+#             - name: SEED
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: node-seeds
+#                   key: SEED
+#             - name: NODE_NAME
+#               value: "validatornode"
+#       containers:
+#         - name: opticonomy-node
+#           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+#           imagePullPolicy: {{ .Values.image.pullPolicy }}
+#           args:
+#             - --name={{ .Values.nodeConfig.name }}
+#             - --base-path={{ .Values.nodeConfig.basePath }}
+#             - --chain={{ .Values.nodeConfig.chain}}
+#             - --port={{ .Values.nodeConfig.port }}
+#             - --ws-port={{ .Values.nodeConfig.wsPort }}
+#             - --rpc-port={{ .Values.nodeConfig.rpcPort }}
+#             - --telemetry-url={{ .Values.nodeConfig.telemetryUrl }}
+#             - --pruning={{ .Values.nodeConfig.pruning }}
+#             - --node-key-file={{ .Values.nodeConfig.keyFile }}
+#             - --keystore-path={{ .Values.nodeConfig.keystorePath }}
+#             - --bootnodes={{ .Values.nodeConfig.bootnodes }}
+#             {{- if .Values.nodeConfig.validator }}
+#             - --validator
+#             {{- end }}
+#             - --rpc-cors={{ .Values.nodeConfig.rpcCors }}
+#             - --rpc-methods={{ .Values.nodeConfig.rpcMethods }}
+#             {{- if .Values.nodeConfig.exposeExternal.ws }}
+#             - --ws-external
+#             {{- end }}
+#             {{- if .Values.nodeConfig.exposeExternal.rpc }}
+#             - --rpc-external
+#             {{- end }}
+#           volumeMounts:
+#             - name: keystore-storage
+#               mountPath: {{ .Values.nodeConfig.keystorePath }}
+#             - name: blockchain-storage
+#               mountPath: {{ .Values.nodeConfig.basePath }}
+#           ports:
+#             - containerPort: {{ .Values.service.p2pPort }}
+#               name: p2p
+#           resources:
+#             limits:
+#               cpu: {{ .Values.resources.limits.cpu }}
+#               memory: {{ .Values.resources.limits.memory }}
+#             requests:
+#               cpu: {{ .Values.resources.requests.cpu }}
+#               memory: {{ .Values.resources.requests.memory }}
+#           env:
+#             - name: SEED
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: node-seeds
+#                   key: SEED
+#             - name: NODE_NAME
+#               value: "validatornode"
+#       volumes:
+#         - name: keystore-storage
+#           persistentVolumeClaim:
+#             claimName: {{ include "opticonomy-node.fullname" . }}-keystore
+#         - name: blockchain-storage
+#           persistentVolumeClaim:
+#             claimName: {{ include "opticonomy-node.fullname" . }}-blockchain
+# {{- end }}
+
+
+
+
+
+
+
 
 
 
