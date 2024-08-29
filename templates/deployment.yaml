@@ -18,7 +18,7 @@ spec:
         app: {{ include "opticonomy-node.name" . }}
         role: {{ .Values.nodeConfig.name | quote }}
     spec:
-      serviceAccountName: validator-sa  # This line assumes you have set up an appropriate service account for AWS IAM role integration
+      serviceAccountName: validator-sa
       containers:
         - name: opticonomy-node
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -49,9 +49,9 @@ spec:
             {{- end }}
           env:
             - name: AWS_DEFAULT_REGION
-              value: "eu-west-1"  # Your AWS region
+              value: "eu-west-1"
             - name: NODE_NAME
-              value: "{{ .Values.nodeConfig.name }}"  # Dynamically set NODE_NAME from your Helm values
+              value: "{{ .Values.nodeConfig.name }}"
           volumeMounts:
             - name: keystore-storage
               mountPath: {{ .Values.nodeConfig.keystorePath }}
@@ -67,7 +67,6 @@ spec:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
               memory: {{ .Values.resources.requests.memory }}
-      restartPolicy: OnFailure  # Ensures that the pod is restarted on failure
       volumes:
         - name: keystore-storage
           persistentVolumeClaim:
